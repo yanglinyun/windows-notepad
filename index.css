@@ -1,0 +1,173 @@
+body {
+  margin: 0;
+  padding: 0;
+  font-family: Arial, Helvetica, sans-serif;
+  font-size: 12px;
+  height: 100vh;
+}
+@font-face {
+  font-family: 'iconfont';
+  src: url('font-icon/iconfont.eot');
+  src: url('font-icon/iconfont.eot?#iefix') format('embedded-opentype'), url('font-icon/iconfont.woff2') format('woff2'), url('font-icon/iconfont.woff') format('woff'), url('font-icon/iconfont.ttf') format('truetype'), url('font-icon/iconfont.svg#iconfont') format('svg');
+}
+.iconfont {
+  font-family: "iconfont" !important;
+  font-size: 16px;
+  font-style: normal;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+div {
+  box-sizing: border-box;
+}
+#app {
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+  height: 80%;
+  width: 50%;
+  border: 4px solid #D6D3CE;
+}
+#app .title {
+  padding: 1px;
+  color: #ffffff;
+  font-weight: bold;
+  height: 3.01003344%;
+  background-color: #0B2370;
+  display: flex;
+  justify-content: space-between;
+  overflow: hidden;
+}
+#app .title .pageBtn {
+  width: 47px;
+  height: 96%;
+  display: flex;
+  align-content: center;
+  justify-content: space-between;
+}
+#app .title .pageBtn button {
+  height: 100%;
+  margin-left: -3px;
+  position: relative;
+  bottom: 1px;
+  background-color: #D6D3CE;
+  border-color: #fff;
+}
+#app .title .pageBtn button p {
+  position: absolute;
+  margin: 0;
+  padding: 0;
+  bottom: -2px;
+  left: 2px;
+}
+#app .menu {
+  padding: 1px;
+  height: 3.01003344%;
+  padding-left: 2px;
+  font-weight: 550;
+  background-color: #D6D3CE;
+  position: relative;
+}
+#app .menu span {
+  display: inline-block;
+  margin-right: 2%;
+}
+#app .menu .curMenu {
+  z-index: 999;
+  box-sizing: border-box;
+  padding: 2px;
+  position: absolute;
+  top: 100%;
+  width: 40%;
+  background-color: #fff;
+  display: none;
+  box-shadow: 4px 4px 3px #cccccc;
+  border-radius: 2px;
+}
+#app .menu .curMenu .item {
+  padding: 5px 0px;
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+  padding: 2px 5% 2px 3%;
+}
+#app .menu .curMenu .item:hover {
+  background-color: #5774d4;
+}
+#app .dialog .item {
+  position: absolute;
+  background-color: #D6D3CE;
+  box-shadow: -1px -1px 1px #000, 1px 1px 1px #fff;
+  left: 50%;
+  transform: translateX(-50%);
+  top: 20%;
+  width: 80%;
+}
+#app .dialog .item .title {
+  height: auto;
+}
+#app .dialog .item .title .pageBtn {
+  height: auto;
+  width: auto;
+}
+#app .dialog .help_about {
+  height: 40%;
+  text-align: center;
+}
+#app .dialog .help_about .logo {
+  font-size: 3em;
+  font-weight: 700;
+  color: #0077C8;
+  margin: 5px;
+  border-bottom: 2px solid #797777;
+}
+#app .func {
+  padding: 1px;
+  height: 3.34448161%;
+  padding-left: 2px;
+  background-color: #D6D3CE;
+  box-shadow: -1px -1px 1px #000, 1px 1px 1px #fff;
+  margin-bottom: 3px;
+}
+#app .func span {
+  display: inline-block;
+  padding-right: 5px;
+}
+#app .func span:nth-child(3),
+#app .func span:nth-child(5),
+#app .func span:nth-child(8),
+#app .func span:nth-child(11) {
+  border-right: 1px solid #9c9a9a;
+}
+#app .content {
+  overflow-y: scroll;
+  overflow-x: scroll;
+  width: 99.5%;
+  padding: 1px;
+  height: 87.2909699%;
+  padding-left: 2px;
+  background-color: #fff;
+  border: 1px solid #D6D3CE;
+  box-shadow: -1px -1px 1px #000, 1px 1px 1px #fff;
+}
+#app .footerInfo {
+  background-color: #D6D3CE;
+  box-shadow: -1px -1px 1px #000, 1px 1px 1px #fff;
+}
+#app .footerInfo span {
+  padding: 0px 2px;
+}
+#app .footerInfo > span:nth-child(-n+3) {
+  border-right: 1px solid #9c9a9a;
+}
+@media screen and (min-width: 768px) {
+  #app {
+    width: 80%;
+  }
+}
+@media screen and (max-width: 768px) {
+  #app {
+    width: 100%;
+    height: 100%;
+  }
+}

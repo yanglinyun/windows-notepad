@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1.0,maximum-scale=1.0,user-scalable=0">
+    <title>windows记事本</title>
+    <link href="./index.css" rel="styleSheet" type="text/css">
+</head>
+<body>
+    <div id="app">
+        <div class="title">
+            <span>无标题-记事本</span>
+            <span class="pageBtn">
+                <button><p><b>_</b></p></button>
+                <button><p><b>□</b></p></button>
+                <button><p><b>x</b></p></button>
+            </span>
+        </div>
+        <div class="menu">
+            <span data-menu="file" class="menu_btn">文件(F)</span>
+            <div class="file curMenu">
+                <div class="item menu_item"><span>打开新文件</span><span>Ctrl+N</span></div>
+                <div class="item menu_item"><span>新建文件</span><span>Ctrl+shift+N</span></div>
+                <div class="item menu_item"><span>开启文件</span><span>Ctrl+O</span></div>
+                <div class="item menu_item"><span>保存文件</span><span>Ctrl+S</span></div>
+                <hr>
+                <div class="item menu_item"><span>打印</span><span>Ctrl+P</span></div>
+                <hr>
+                <div class="item menu_item"><span>结束</span><span>Ctrl+N</span></div>
+            </div>
+            <span data-menu="edit" class="menu_btn">编辑(E)</span>
+            <div class="edit curMenu">
+                <div class="item menu_item"><span>打开新文件</span><span>Ctrl+N</span></div>
+                <div class="item menu_item"><span>新建文件</span><span>Ctrl+shift+N</span></div>
+                <div class="item menu_item"><span>开启文件</span><span>Ctrl+O</span></div>
+                <div class="item menu_item"><span>保存文件</span><span>Ctrl+S</span></div>
+                <hr>
+                <div class="item menu_item"><span>打印</span><span>Ctrl+P</span></div>
+                <hr>
+                <div class="item menu_item"><span>结束</span><span>Ctrl+N</span></div>
+            </div>
+            <span data-menu="view" class="menu_btn">视图(V)</span>
+            <div class="view curMenu">
+                <div class="item menu_item"><span>打开新文件</span><span>Ctrl+N</span></div>
+                <div class="item menu_item"><span>新建文件</span><span>Ctrl+shift+N</span></div>
+                <div class="item menu_item"><span>开启文件</span><span>Ctrl+O</span></div>
+                <div class="item menu_item"><span>保存文件</span><span>Ctrl+S</span></div>
+                <hr>
+                <div class="item menu_item"><span>打印</span><span>Ctrl+P</span></div>
+                <hr>
+                <div class="item menu_item"><span>结束</span><span>Ctrl+N</span></div>
+            </div>
+            <span data-menu="tool" class="menu_btn">工具(T)</span>
+            <div class="tool curMenu">
+                <div class="item menu_item"><span>打开新文件</span><span>Ctrl+N</span></div>
+                <div class="item menu_item"><span>新建文件</span><span>Ctrl+shift+N</span></div>
+                <div class="item menu_item"><span>开启文件</span><span>Ctrl+O</span></div>
+                <div class="item menu_item"><span>保存文件</span><span>Ctrl+S</span></div>
+                <hr>
+                <div class="item menu_item"><span>打印</span><span>Ctrl+P</span></div>
+                <hr>
+                <div class="item menu_item"><span>结束</span><span>Ctrl+N</span></div>
+            </div>
+            <span data-menu="help" class="menu_btn">帮助(H)</span>
+            <div class="help curMenu">
+                <div class="item menu_item"><span>查看说明</span></div>
+                <hr>
+                <div class="item menu_item">
+                    <span data-class="help_about">关于记事本</span>
+                </div>
+            </div>
+        </div>
+        <div class="dialog">
+            <div class="item help_about">
+                <div class="title">
+                    <span>关于&nbsp记事本</span>
+                    <span class="pageBtn">
+                        <button class="closeBtn"><p><b>x</b></p></button>
+                    </span>
+                </div>
+                <div class="logo">
+                    <span>Windows 10</span>
+                </div>
+                @2019 Microsoft Corporation 著作權所有,並保留一切權力
+            </div>
+        </div>
+        <div class="func">
+            <span class="iconfont">&#xe615;</span>
+            <span class="iconfont">&#xe68e;</span>
+            <span class="iconfont">&#xe60f;</span>
+            <span class="iconfont">&#xe63c;</span>
+            <span class="iconfont">&#xe63c;</span>
+            <span class="iconfont">&#xe6f5;</span>
+            <span class="iconfont">&#xe6a2;</span>
+            <span class="iconfont">&#xe70c;</span>
+            <span class="iconfont">&#xe73b;</span>
+            <span class="iconfont">&#xe6de;</span>
+            <span class="iconfont">&#xe66d;</span>
+            <span class="iconfont">&#xe604;</span>
+            <span class="iconfont">&#xe6ad;</span>
+            <span class="iconfont">&#xe66c;</span>
+        </div>
+        <textarea class="content" autofocus placeholder="欢迎使用windows记事本!">
+            
+        </textarea>
+        <div class="footerInfo">
+            <span id="row_col">
+                行<span id="row"></span>
+                &nbsp;&nbsp;
+                列<span id="col"></span>
+                &nbsp;&nbsp;
+                选择的字节<span id="selected"></span>
+            </span>
+            <span id="sizeBox">
+               <span id="size"></span>字节
+            </span>
+            <span id="charSetBox">
+                <span id="charSet">ANSI</span>
+             </span>
+             <span id="fileTypeBox">
+                <span id="fileType">文本文档</span>
+             </span>
+        </div>
+    </div>
+</body>
+<script src="./index.js"></script>
+
+</html>

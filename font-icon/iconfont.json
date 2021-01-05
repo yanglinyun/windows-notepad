@@ -1,0 +1,100 @@
+{
+  "id": "",
+  "name": "",
+  "font_family": "iconfont",
+  "css_prefix_text": "icon-",
+  "description": "",
+  "glyphs": [
+    {
+      "icon_id": "1056665",
+      "name": "复制",
+      "font_class": "fuzhi",
+      "unicode": "e6a2",
+      "unicode_decimal": 59042
+    },
+    {
+      "icon_id": "1367336",
+      "name": "新建",
+      "font_class": "xinjian",
+      "unicode": "e615",
+      "unicode_decimal": 58901
+    },
+    {
+      "icon_id": "1790488",
+      "name": "剪切",
+      "font_class": "jianqie",
+      "unicode": "e6f5",
+      "unicode_decimal": 59125
+    },
+    {
+      "icon_id": "2676724",
+      "name": "放大",
+      "font_class": "fangda",
+      "unicode": "e6de",
+      "unicode_decimal": 59102
+    },
+    {
+      "icon_id": "9655540",
+      "name": "缩小",
+      "font_class": "suoxiao",
+      "unicode": "e66d",
+      "unicode_decimal": 58989
+    },
+    {
+      "icon_id": "10793736",
+      "name": "粘贴_剪贴板操作_jurassic",
+      "font_class": "jurassic_paste",
+      "unicode": "e70c",
+      "unicode_decimal": 59148
+    },
+    {
+      "icon_id": "11179878",
+      "name": "字体大小",
+      "font_class": "zitidaxiao",
+      "unicode": "e604",
+      "unicode_decimal": 58884
+    },
+    {
+      "icon_id": "11757079",
+      "name": "望远镜",
+      "font_class": "wangyuanjing",
+      "unicode": "e73b",
+      "unicode_decimal": 59195
+    },
+    {
+      "icon_id": "13344768",
+      "name": "回退",
+      "font_class": "huitui",
+      "unicode": "e63c",
+      "unicode_decimal": 58940
+    },
+    {
+      "icon_id": "14013846",
+      "name": "离开",
+      "font_class": "likai",
+      "unicode": "e66c",
+      "unicode_decimal": 58988
+    },
+    {
+      "icon_id": "14997308",
+      "name": "保存",
+      "font_class": "baocun",
+      "unicode": "e60f",
+      "unicode_decimal": 58895
+    },
+    {
+      "icon_id": "18320828",
+      "name": "换肤",
+      "font_class": "huanfu",
+      "unicode": "e6ad",
+      "unicode_decimal": 59053
+    },
+    {
+      "icon_id": "18837877",
+      "name": "打开文件夹",
+      "font_class": "dakaiwenjianjia",
+      "unicode": "e68e",
+      "unicode_decimal": 59022
+    }
+  ]
+}
