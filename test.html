@@ -1,0 +1,134 @@
+<html>   
+   <head>  
+    <meta charset="utf-8"> 
+   <meta http-equiv="Content-Type" content="text/html; charset=gb2312">   
+   <meta name="GENERATOR" content="Microsoft FrontPage 4.0">   
+   <meta name="ProgId" content="FrontPage.Editor.Document">   
+   <title>光标位置</title>   
+   <style>   
+   INPUT{border: 1 solid #000000}   
+   BODY,TABLE{font-size: 10pt}   
+   </style>   
+   </head>   
+   <body>  
+   <table border="0" width="700" cellspacing="0" cellpadding="0">   
+   <tr>   
+   <td width="479" rowspan="7">    
+ <div contentEditable="true"  id="box" onclick=tellPoint(this)>  
+1. 入库作业、出库作业、清点作业等功能操作允许多单并行操作，即根据调拨单据号或清点单据号可接收多个作业单据，通过选择不同的作业单据进行实际操作。 
+   </div>   
+   <script>   
+   function movePoint()   
+   {   
+   var pn=parseInt(pnum.value);   
+   if(isNaN(pn))   
+   return;    
+   var rng= document.body.createTextRange();
+   rng.moveToElementText(box)
+   rng.moveStart("character",pn);   
+   rng.collapse(true);   
+   rng.select();   
+   returnCase(rng)   
+   }   
+   function tellPoint(e)   
+   {   
+   //var rng=event.srcElement.createTextRange();
+   var rng= document.body.createTextRange();
+   rng.moveToElementText(box)    
+   rng.moveToPoint(event.x,event.y);   
+   rng.moveStart("character",-box.innerHTML.length) 
+   if(document.selection)   
+   {   
+   var sw=document.selection.createRange().text.length;
+   alert('当前选种文字的文字从'+parseInt(rng.text.length-sw)+'到'+rng.text.length)    
+   }  
+      
+   pnum.value=rng.text.length   
+   returnCase(rng)   
+   }   
+   
+   function returnCase(rng)   
+   {   
+   bh.innerText=rng.boundingHeight;   
+   bl.innerText=rng.boundingLeft;   
+   bt.innerText=rng.boundingTop;   
+   bw.innerText=rng.boundingWidth;   
+   ot.innerText=rng.offsetTop;   
+   ol.innerText=rng.offsetLeft;   
+   t.innerText=rng.text;   
+   }   
+   
+   function selectText(sp,ep)   
+   {   
+   sp=parseInt(sp)   
+   ep=parseInt(ep)   
+   if(isNaN(sp)||isNaN(ep))   
+   return;   
+   var rng= document.body.createTextRange();
+   rng.moveToElementText(box)   
+   rng.moveEnd("character",-box.innerHTML.length)   
+   rng.moveStart("character",box.innerHTML.length)   
+   rng.collapse(true);   
+   rng.moveEnd("character",ep)   
+   rng.moveStart("character",sp)   
+   rng.select();   
+   returnCase(rng);   
+   }   
+   var rg=document.body.createTextRange(); 
+   rg.moveToElementText(box)  
+   function findText(tw)   
+   {   
+   if(tw=="")   
+   return;   
+   var sw=0;   
+   if(document.selection)   
+   {   
+   sw=document.selection.createRange().text.length;   
+   }   
+   rg.moveEnd("character",box.innerHTML.length);   
+   rg.moveStart("character",sw);   
+   
+   if(rg.findText(tw))   
+   {   
+   rg.select();   
+   returnCase(rg);   
+   }   
+   if(rg.text!=tw)   
+   {   
+   alert("已经搜索完了");  
+   rg=document.body.createTextRange(); 
+   rg.moveToElementText(box)  
+   }   
+   }   
+   </script>   
+   </p>   
+   <p></p>   
+   光标位置：<input type="text" value="0" id="pnum" size="8"> <input type="button" onclick="movePoint()" value="移动光标到指定位置">   
+   <p></p>   
+   选择指定范围：<input type="text" size="9" id="sbox"> -- <input type="text" size="9" id="ebox"> <input type="button" onclick="selectText(sbox.value,ebox.value)" value="选择">   
+   <p></p>   
+   选择查找字符 ：<input type="text" value="" id="cbox" size="8"> <input type="button" onclick="findText(cbox.value)" value="查找下一个并选择">   
+   </td>   
+   <td width="217">boundingHeight:&nbsp;<span id="bh"></span></td>   
+   </tr>   
+   <tr>   
+   <td width="217">boundingWidth:&nbsp;<span id="bw"></span></td>   
+   </tr>   
+   <tr>   
+   <td width="217">boundingTop:&nbsp;<span id="bt"></span></td>   
+   </tr>   
+   <tr>   
+   <td width="217">boundingLeft:&nbsp;<span id="bl"></span></td>   
+   </tr>   
+   <tr>   
+   <td width="217">offsetLeft:&nbsp;<span id="ol"></span> </td>   
+   </tr>   
+   <tr>   
+   <td width="217">offsetTop:&nbsp;<span id="ot"></span> </td>   
+   </tr>   
+   <tr>   
+   <td width="217">text:&nbsp;<span style="position: absolute; z-index: 10" id="t"></span> </td>   
+   </tr>   
+   </table>   
+   </body>   
+   </html>

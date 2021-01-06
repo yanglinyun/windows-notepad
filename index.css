@@ -85,11 +85,23 @@ div {
   border-radius: 2px;
 }
 #app .menu .curMenu .item {
-  padding: 5px 0px;
   display: flex;
   justify-content: space-between;
   width: 100%;
-  padding: 2px 5% 2px 3%;
+  padding: 2px 5px 2px 20px;
+  position: relative;
+}
+#app .menu .curMenu .item .menu_item_actived {
+  visibility: hidden;
+  box-sizing: border-box;
+  width: 20px;
+  text-align: center;
+  padding-top: 3px;
+  height: 90%;
+  position: absolute;
+  left: 0;
+  font-weight: bold;
+  background-color: #0077C8;
 }
 #app .menu .curMenu .item:hover {
   background-color: #5774d4;
@@ -111,6 +123,7 @@ div {
   width: auto;
 }
 #app .dialog .help_about {
+  display: none;
   height: 40%;
   text-align: center;
 }
@@ -120,6 +133,53 @@ div {
   color: #0077C8;
   margin: 5px;
   border-bottom: 2px solid #797777;
+}
+#app .dialog .edit_replace,
+#app .dialog .edit_find {
+  height: 25%;
+  background-color: #D6D3CE;
+  display: none;
+}
+#app .dialog .edit_replace .func,
+#app .dialog .edit_find .func {
+  height: 100%;
+}
+#app .dialog .edit_replace .func .funcLeft,
+#app .dialog .edit_find .func .funcLeft {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  padding: 10px 5px 5% 10px;
+  float: left;
+  height: 100%;
+  width: 80%;
+}
+#app .dialog .edit_replace .func .funcLeft .search input,
+#app .dialog .edit_find .func .funcLeft .search input {
+  width: 80%;
+}
+#app .dialog .edit_replace .func .funcLeft .options,
+#app .dialog .edit_find .func .funcLeft .options {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+}
+#app .dialog .edit_replace .func .funcLeft fieldset,
+#app .dialog .edit_find .func .funcLeft fieldset {
+  display: inline-block;
+  width: 25%;
+}
+#app .dialog .edit_replace .func .funcRight,
+#app .dialog .edit_find .func .funcRight {
+  padding: 10px 5px 5% 10px;
+  float: left;
+  height: 100%;
+  width: 20%;
+}
+#app .dialog .edit_replace .func button,
+#app .dialog .edit_find .func button {
+  width: 100%;
+  margin-bottom: 10%;
 }
 #app .func {
   padding: 1px;
@@ -169,5 +229,11 @@ div {
   #app {
     width: 100%;
     height: 100%;
+  }
+  .funcLeft {
+    width: 70% !important;
+  }
+  .funcRight {
+    width: 30% !important;
   }
 }
