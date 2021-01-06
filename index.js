@@ -100,7 +100,8 @@ addEvent(menu_items_span, "click", (e) => {
 addEvent(menu_items, "click", (e) => {
   var curObj = e.target;
   var curDialogName = curObj.getAttribute("data-class");
-  var curDialog = document.getElementsByClassName(curDialogName)[0];
+  var dialog = document.getElementsByClassName('dialog')[0];
+  var curDialog = dialog.getElementsByClassName(curDialogName)[0];
 
   if (curDialog) {
     var curDisplay = css(curDialog, "display");
@@ -110,6 +111,7 @@ addEvent(menu_items, "click", (e) => {
     for (var i = 0; i < diaLogItems.length; i++) {
       diaLogItems[i].style.display = "none";
     }
+    console.log("test");
     setTimeout(() => {
       curDialog.style.display = curDisplay == "block" ? "none" : "block";
     }, 210);
