@@ -1,8 +1,8 @@
 # windows-notepad[网页仿windows记事本]
 ![原版UI](https://github.com/yanglinyun/windows-notepad/blob/master/readme_img/%E5%8E%9F%E7%89%88UI.jpg)
-
+實現效果UI
 ![實現效果UI](https://github.com/yanglinyun/windows-notepad/blob/master/readme_img/%E5%AF%A6%E7%8F%BE%E6%95%88%E6%9E%9CUI.PNG)
-
+實現效果UI
 
 ## 使用技術: HTML5\CSS3\JS
 ## 第三方库: 无
