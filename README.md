@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 # windows-notepad[网页仿windows记事本]
 <img src="./readme_img/原版UI.jpg">
 原版UI
@@ -41,3 +42,8 @@
 1. 使用说明
 2. 关于记事本
 
+=======
+# windows-notepad
+网页仿windows记事本
+111
+>>>>>>> 381187f1a925c7aeadc8d9e43268f3718b8da131
