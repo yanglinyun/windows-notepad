@@ -1,8 +1,9 @@
 # windows-notepad[网页仿windows记事本]
+### 原版UI
 <img src="./readme_img/原版UI.jpg" style="margin:0 auto">
-原版UI
+### 實現效果UI
 <img src="./readme_img/實現效果UI.PNG" style="margin:0 auto">
-實現效果UI
+
 
 ## 使用技術: HTML5\CSS3\JS
 ## 第三方库: 无
