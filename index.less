@@ -5,7 +5,10 @@ body {
     font-size: 12px;
     height: 100vh;
 }
-
+a{
+    text-decoration: none;
+    color:#000;
+}
 @font-face {
     font-family: 'iconfont';
     src: url('./font-icon/iconfont.eot');
@@ -86,6 +89,7 @@ div {
             margin-right: 2%;
         }
 
+        .subMenu,
         .curMenu {
             z-index: 999;
             box-sizing: border-box;
@@ -107,7 +111,7 @@ div {
 
                 .menu_item_actived {
 
-                    visibility: hidden;
+                    visibility: visible;
                     box-sizing: border-box;
                     width: 20px;
                     text-align: center;
@@ -125,6 +129,12 @@ div {
                 background-color: #5774d4;
             }
 
+        }
+
+        .subMenu {
+            left: 100%;
+            top: 0;
+            width: 80%;
         }
     }
 
@@ -154,6 +164,7 @@ div {
             display: none;
             height: 40%;
             text-align: center;
+
             .logo {
                 font-size: 3em;
                 font-weight: 700;
@@ -162,11 +173,13 @@ div {
                 border-bottom: 2px solid rgb(121, 119, 119);
             }
         }
+
         .edit_replace,
         .edit_find {
             height: 25%;
             background-color: #D6D3CE;
             display: none;
+
             .func {
                 height: 100%;
 

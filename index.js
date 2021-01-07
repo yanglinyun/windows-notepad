@@ -4,6 +4,10 @@ var content = "";
 var historyArr = [];
 var historyIndex = 0; //还原指针位置
 var textarea = document.getElementsByTagName("textarea")[0];
+//选中区域信息
+var selectRange = { data: "", start: 0, end: 0 };
+//输入光标位置
+var inputPointer = 0;
 //文本大小显示
 var sizeBox = document.getElementById("size");
 //选中内容大小显示
@@ -27,13 +31,29 @@ function inputFn(val, isReturn) {
   }
   content = val;
   textarea.value = val;
+  upadateFooterInfo();
+}
+function upadateFooterInfo() {
   sizeBox.innerText = getStringSize(textarea.value);
   charSet.innerText = hasChinese(textarea.value) ? "UTF-8" : "ANSI";
+}
+//获取光标位置
+textarea.addEventListener("keyup", getInputPointer);
+textarea.addEventListener("click", getInputPointer);
+function getInputPointer(e) {
+  //this无效
+  inputPointer = e.target.selectionStart;
 }
 //选中文本框文字
 textarea.addEventListener("select", function (e) {
   selectedText = window.getSelection().toString();
   selected.innerText = getStringSize(selectedText);
+  selectRange.start = this.selectionStart;
+  selectRange.end = this.selectionEnd;
+  selectRange.data =
+    selectRange.start != selectRange.end
+      ? content.substring(selectRange.start, selectRange.end)
+      : "";
 });
 //清除选中
 textarea.addEventListener("click", function (e) {
@@ -48,7 +68,14 @@ function css(obj, attr) {
   var res = window.getComputedStyle(obj, null)[attr];
   return isNaN(parseFloat(res)) ? res : parseFloat(res);
 }
-
+//获取元素属性
+function getAttr(obj, attr) {
+  return obj.getAttribute(attr);
+}
+//设置元素属性
+function setAttr(obj, attr, value) {
+  obj.setAttribute(attr, value);
+}
 function getStringSize(content) {
   var part = /[0-9a-zA-Z!@#$%^&*()_+-/.~`/[/]/g;
   var arr = content.match(part);
@@ -100,7 +127,7 @@ addEvent(menu_items_span, "click", (e) => {
 addEvent(menu_items, "click", (e) => {
   var curObj = e.target;
   var curDialogName = curObj.getAttribute("data-class");
-  var dialog = document.getElementsByClassName('dialog')[0];
+  var dialog = document.getElementsByClassName("dialog")[0];
   var curDialog = dialog.getElementsByClassName(curDialogName)[0];
 
   if (curDialog) {
@@ -111,7 +138,6 @@ addEvent(menu_items, "click", (e) => {
     for (var i = 0; i < diaLogItems.length; i++) {
       diaLogItems[i].style.display = "none";
     }
-    console.log("test");
     setTimeout(() => {
       curDialog.style.display = curDisplay == "block" ? "none" : "block";
     }, 210);
@@ -119,28 +145,55 @@ addEvent(menu_items, "click", (e) => {
     //无页面显示的功能
 
     eval(curDialogName + "()");
-    // //打勾
-    // if (curObj.parentNode.children.length > 2) {
-    //   var menu_item_actived = curObj.parentNode.children[0];
-    //   var menu_item_actived_visibility = css(menu_item_actived, "visibility");
-    //   menu_item_actived.style.visibility =
-    //     menu_item_actived_visibility == "visible" ? "hidden" : "visible";
-    // }
+    //打勾
+    var menu_item_actived = curObj.getElementsByClassName(
+      "menu_item_actived"
+    )[0];
+
+    if (menu_item_actived) {
+      var menu_item_actived_visibility = css(menu_item_actived, "visibility");
+      menu_item_actived.style.visibility =
+        menu_item_actived_visibility == "visible" ? "hidden" : "visible";
+    }
   }
 });
+//含有子菜单的选项事件函数
+var has_sub_menu = document.getElementsByClassName("has_sub_menu");
+addEvent(has_sub_menu, "click", has_sub_menu_handle);
+// addEvent(has_sub_menu, "mouseover",(e)=>{
+//     var cur_sub_menu = e.target.getElementsByClassName("subMenu")[0];
+
+//     cur_sub_menu.style.display="block";
+// });
+// addEvent(has_sub_menu, "mouseout",(e)=>{
+//     var cur_sub_menu = e.target.getElementsByClassName("subMenu")[0];
+//     cur_sub_menu.style.display="none";
+// });
+function has_sub_menu_handle(e) {
+  e.stopPropagation();
+  var cur_sub_menu = e.target.getElementsByClassName("subMenu")[0];
+
+  var cur_sub_menu_dispaly = css(cur_sub_menu, "display");
+  console.log(cur_sub_menu_dispaly);
+  if (cur_sub_menu_dispaly == "block") {
+    cur_sub_menu.style.display = "none";
+  } else {
+    cur_sub_menu.style.display = "block";
+  }
+}
 //-------------------------------------------------------
 //功能区func点击事件
 //file区
 //file_paint
-function file_new(){
-    if(content!=''){
-        if(confirm("是否保存当前文件!")){
-            file_save();
-            return;
-        }
+function file_new() {
+  if (content != "") {
+    if (confirm("是否保存当前文件!")) {
+      file_save();
+      return;
     }
-    content="";
-    textarea.value="";
+  }
+  content = "";
+  textarea.value = "";
 }
 function file_paint() {
   window.print();
@@ -179,26 +232,26 @@ uploadText.addEventListener("change", (e) => {
     charSet.innerText = "UTF-8";
   };
 });
-function file_save(){
-    if(!(new Blob())){
-        alert("你的浏览器不支持 Blob ");
-        return;
-    }
-    saveAs(textarea.value,"text");
+function file_save() {
+  if (!new Blob()) {
+    alert("你的浏览器不支持 Blob ");
+    return;
+  }
+  saveAs(textarea.value, "text");
 }
 //文件保存函数
-function saveAs(data,name){
-   var link = document.createElement('a');
-   link.download = name;
-   link.style.display = "none";
-   //内容转blob地址
-   var blob = new Blob([data]);
-   link.href = URL.createObjectURL(blob);
-   //触发点击事件
-   document.body.appendChild(link);
-   link.click();
-   //移除元素
-   document.body.removeChild(link);
+function saveAs(data, name) {
+  var link = document.createElement("a");
+  link.download = name;
+  link.style.display = "none";
+  //内容转blob地址
+  var blob = new Blob([data]);
+  link.href = URL.createObjectURL(blob);
+  //触发点击事件
+  document.body.appendChild(link);
+  link.click();
+  //移除元素
+  document.body.removeChild(link);
 }
 function file_close() {
   if (confirm("是否关闭记事本")) {
@@ -207,6 +260,7 @@ function file_close() {
     window.close();
   }
 }
+//文件func功能区
 //file_new
 var func_file_new = document.getElementsByClassName("file_new")[0];
 func_file_new.addEventListener("click", file_new);
@@ -216,6 +270,9 @@ func_file_open.addEventListener("click", file_open);
 //file_save
 var func_file_save = document.getElementsByClassName("file_save")[0];
 func_file_save.addEventListener("click", file_save);
+var func_file_close = document.getElementsByClassName("file_close");
+addEvent(func_file_close, "click", file_close);
+//编辑func功能区
 //edit_return
 var func_edit_return = document.getElementsByClassName("edit_return")[0];
 func_edit_return.addEventListener("click", edit_return);
@@ -228,8 +285,25 @@ func_edit_copy.addEventListener("click", edit_copy);
 //edit_paste
 var func_edit_paste = document.getElementsByClassName("edit_paste")[0];
 func_edit_paste.addEventListener("click", edit_paste);
+//edit_find
+var func_edit_find = document.getElementsByClassName("edit_find_func")[0];
 
-//------------------------------------------------------- 
+func_edit_find.addEventListener("click", () => {
+  var item = document.getElementsByClassName("edit_find_item")[0];
+  console.log(item);
+  item.click();
+});
+//视图func功能区
+var func_view_scale_zoom_in = document.getElementsByClassName(
+  "view_scale_zoom_in"
+)[0];
+func_view_scale_zoom_in.addEventListener("click", view_scale_zoom_in);
+var func_view_scale_zoom_out = document.getElementsByClassName(
+  "view_scale_zoom_out"
+)[0];
+func_view_scale_zoom_out.addEventListener("click", view_scale_zoom_out);
+
+//-------------------------------------------------------
 //视图功能实现
 function view_footerInfo() {
   var footerInfo = document.getElementsByClassName("footerInfo")[0];
@@ -243,6 +317,31 @@ function view_footerInfo() {
     textarea.style.height = "89%";
   }
 }
+function view_scale_zoom_in() {
+  var newVal = css(textarea, "fontSize") + 2;
+  if (newVal >= 80) {
+    alert("朋友,这不是巨人国");
+    return;
+  }
+  textarea.style.fontSize = newVal + "px";
+}
+function view_scale_zoom_out() {
+  var newVal = css(textarea, "fontSize") - 2;
+  if (newVal <= 10) {
+    alert("朋友,这不是小人国");
+    return;
+  }
+  textarea.style.fontSize = newVal + "px";
+}
+//换行
+function view_wrap() {
+  var textarea_wrap = getAttr(textarea, "wrap");
+  if (textarea_wrap == "on") {
+    setAttr(textarea, "wrap", "off");
+  } else {
+    setAttr(textarea, "wrap", "on");
+  }
+}
 //编辑功能实现
 function edit_return() {
   historyIndex = historyArr.length - 1;
@@ -250,22 +349,55 @@ function edit_return() {
     inputFn(historyArr[historyIndex - 1], true);
     historyArr.pop();
   }
+  upadateFooterInfo();
 }
 function edit_cut() {
   if (selectedText) {
-    document.execCommand("cut");
+    copy = selectRange.data;
+
+    content =
+      content.substring(0, selectRange.start) +
+      content.substring(selectRange.end);
+    inputFn(content, false);
     alert("已剪切");
   }
 }
 function edit_copy() {
   if (selectedText) {
-    if (document.execCommand("copy", false, null)) {
-      alert("已复制");
-    }
+    copy = selectRange.data;
+    alert("已复制");
   }
 }
 function edit_paste() {
-  document.execCommand("paste");
+  content =
+    content.substring(0, inputPointer) + copy + content.substring(inputPointer);
+  inputFn(content, false);
+}
+function edit_del() {
+  if (selectedText) {
+    content =
+      content.substring(0, selectRange.start) +
+      content.substring(selectRange.end);
+    inputFn(content, false);
+  }
+}
+function edit_select_all() {
+  selectText(textarea, 0, textarea.value.length);
+}
+function edit_insert_time() {
+  var time = new Date();
+  var hour = time.getHours() < 10 ? "0" + time.getHours() : time.getHours();
+  var minte =
+    time.getMinutes() < 10 ? "0" + time.getMinutes() : time.getMinutes();
+  var year = time.getFullYear();
+  var month = time.getMonth() + 1; //月份0-11
+  var day = time.getDate();
+  content =
+    content.substring(0, inputPointer) +
+    `${hour}:${minte} ${year}/${month}/${day}` +
+    content.substring(inputPointer);
+  textarea.value = content;
+  upadateFooterInfo();
 }
 //-------------------------------------------------------
 //对话框关闭按钮点击事件
@@ -276,7 +408,18 @@ addEvent(closeBtns, "click", (e) => {
     curObj.style.display = "none";
   }
 });
+//对话框取消按钮点击事件
+var cancelFinds = document.getElementsByClassName("cancelFind");
+addEvent(cancelFinds, "click", (e) => {
+  // e.stopPropagation();
+  e.preventDefault();
 
+  var dialogName = getAttr(e.target, "data-dialog");
+  var dialog = document.getElementsByClassName(dialogName)[0];
+  if (dialog) {
+    dialog.style.display = "none";
+  }
+});
 //批量注册事件函数
 function addEvent(objs, event, fn) {
   for (var i = 0; i < objs.length; i++) {
@@ -320,4 +463,135 @@ function getCursortPosition(element) {
     }
   }
   return range;
+}
+//设置选中文字
+function selectText(obj, startIndex, stopIndex) {
+  console.log("首部" + startIndex, "尾部" + stopIndex);
+  if (obj.setSelectionRange) {
+    obj.setSelectionRange(startIndex, stopIndex);
+  } else if (obj.createTextRange) {
+    var range = obj.createTextRange();
+    range.collapse(true);
+    range.moveStart("character", startIndex);
+    range.moveEnd("character", stopIndex - startIndex);
+    range.select();
+  }
+  obj.focus();
+  inputPointer = startIndex;
+  selectedText = content.substring(startIndex, stopIndex);
+  selectRange.start = startIndex;
+  selectRange.end = stopIndex;
+}
+
+//dialog事件处理函数
+//edit_find处理事件
+var searchInput = "";
+var case_sensitive = false;
+var direction = "down";
+var replaceInput = "";
+var isReplace = false;
+function find_form_handle(form) {
+  isReplace = false;
+  const formDate = new FormData(form);
+  //直接打印是没有内容的
+  searchInput = formDate.get("searchInput");
+  case_sensitive = formDate.getAll("case_sensitive").length == 0 ? false : true;
+  direction = formDate.getAll("direction")[0];
+  findStrFunc();
+  return false;
+}
+//找上一个
+function edit_find_prev() {
+  findStrFunc();
+}
+function edit_find_next() {
+  findStrFunc();
+}
+function find_replace_form_handle(form) {
+  isReplace = true;
+  const formDate = new FormData(form);
+  //直接打印是没有内容的
+  searchInput = formDate.get("searchInput");
+  replaceInput = formDate.get("replaceInput");
+  case_sensitive = formDate.getAll("case_sensitive").length == 0 ? false : true;
+  direction = formDate.getAll("direction")[0];
+  findStrFunc();
+  return false;
+}
+//查找函数业务层
+function findStrFunc(setDirection) {
+  // console.log("当前光标位置"+inputPointer);
+  if (searchInput == "") {
+    alert("未找到!请输入查找内容!");
+  }
+  var direction_cur = direction;
+  if (setDirection) {
+    direction_cur = setDirection;
+  }
+  // console.log("------------------");
+  // console.log("旧指针"+inputPointer);
+  var findIndex = findStr(
+    searchInput,
+    case_sensitive,
+    inputPointer,
+    direction_cur,
+    replaceInput
+  );
+  // console.log("发现位置"+findIndex);
+  // console.log("查询字符串长度"+searchInput.length);
+  selectText(textarea, findIndex, findIndex + searchInput.length);
+  if (
+    isReplace &&
+    replaceInput != "" &&
+    findIndex >= 0 &&
+    searchInput.length > 0
+  ) {
+    console.log("当前光标位置" + inputPointer);
+    edit_cut();
+    copy = replaceInput;
+    edit_paste();
+  }
+  // console.log("------------------");
+  if (findIndex == -1) {
+    alert("未找到!");
+    if (direction_cur == "up") {
+      inputPointer = 0;
+    } else {
+      inputPointer = content.length;
+    }
+  } else {
+    if (direction_cur == "up") {
+      inputPointer = findIndex - 1;
+    } else {
+      inputPointer = findIndex + 1;
+    }
+  }
+}
+//查找函数核心层
+function findStr(search, caseSensitive, curIndex, direction, repalce) {
+  var startIndex = 0;
+  var endIndex = content.length;
+  if (direction == "up") {
+    endIndex = curIndex;
+  } else {
+    startIndex = curIndex;
+  }
+  //console.log("endIndex", endIndex);
+  if (curIndex < 0 || endIndex < 0) {
+    return -1;
+  }
+  //var tempStr = content.substring(startIndex,endIndex);
+  if (caseSensitive) {
+    if (direction == "up") {
+      return content.lastIndexOf(search, endIndex);
+    } else {
+      return content.indexOf(search, startIndex);
+    }
+  } else {
+    if (direction == "up") {
+      return content.toLowerCase().lastIndexOf(search, endIndex);
+    } else {
+      return content.toLowerCase().indexOf(search, startIndex);
+    }
+  }
 }
