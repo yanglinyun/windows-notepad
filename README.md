@@ -1,4 +1,6 @@
 # windows-notepad[网页仿windows记事本]
+### 实现效果
+<a href="https://yanglinyun.github.io/windows-notepad/">https://yanglinyun.github.io/windows-notepad/</a>
 ### 原版UI
 <img src="./readme_img/原版UI.jpg" style="margin:0 auto">
 
